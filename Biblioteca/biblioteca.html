@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital UNEV - Directorio de Materias</title>
+    
+    <link rel="stylesheet" href="biblioteca.css">
+
+    <style>
+        /* Estilo para el contenedor de la lista de materias */
+        .directorio-materias {
+            max-width: 900px;
+            margin: 40px auto 80px auto; /* Centrado y con margen inferior */
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .directorio-materias h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6em;
+            color: var(--color-principal);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-fondo-claro);
+            margin-bottom: 20px;
+        }
+        .directorio-materias ul {
+            list-style: none;
+            padding: 0;
+            /* Layout de dos columnas para pantallas grandes */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 10px;
+        }
+        .directorio-materias li {
+            background-color: var(--color-fondo-claro);
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .directorio-materias li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .directorio-materias a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1em;
+            color: var(--color-texto);
+            font-weight: 600;
+        }
+        .directorio-materias a::before {
+            content: " "; 
+            margin-right: 10px;
+            color: var(--color-naranja-unev);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2> Biblioteca Digital de la UNEV </h2>
+        <p>Explora y descarga recursos académicos exclusivos por categoría.</p>
+    </header>
+
+    <div class="directorio-materias">
+        <h3>📂 Directorio de Materias:</h3>
+        <ul>
+            <li><a href="administracion_de_empresas.html">Administración de Empresas</a></li>
+            <li><a href="articulos_cientificos.html">Artículos Científicos</a></li>
+            <li><a href="audiolibros.html">Audiolibros</a></li>
+            <li><a href="derecho.html">Derecho</a></li>
+            <li><a href="diseno_grafico.html">Diseño Gráfico</a></li>
+            <li><a href="espanol.html">Español</a></li>
+            <li><a href="historia.html">Historia de Honduras</a></li>
+            <li><a href="matematicas.html">Matemáticas</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="prg_web.html">Programación Web</a></li>
+            <li><a href="sociologia.html">Sociología</a></li>
+            </ul>
+    </div>
+
+</body>
+</html>
