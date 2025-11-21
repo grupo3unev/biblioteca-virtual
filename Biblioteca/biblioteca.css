@@ -98,7 +98,7 @@ header p {
     width: 90%;
     max-width: 1200px;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgb(255, 255, 255);
     transition: background-color 0.3s;
 }
 
@@ -144,7 +144,7 @@ header p {
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgb(255, 255, 255);
     transition: transform 0.3s ease;
 }
 
@@ -208,4 +208,83 @@ header p {
     .categoria-titulo { font-size: 1.4em; padding: 15px 20px; width: 95%; margin: 20px auto 0 auto; }
     .tarjeta-libro { width: 90%; max-width: 350px; }
     .contenedor-libros { padding: 20px 10px; }
+}
+
+/* Agregar al final de tu archivo biblioteca.css */
+
+/* Imágenes de fondo para cada materia */
+.directorio-materias li {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay oscuro para legibilidad del texto */
+.directorio-materias li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(46, 58, 102, 0.75);
+    transition: background 0.3s ease;
+    border-radius: 8px;
+}
+
+.directorio-materias li:hover::before {
+    background: rgba(46, 58, 102, 0.55);
+}
+
+.directorio-materias a {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+/* Imágenes específicas por materia */
+.directorio-materias li:nth-child(1) { /* Administración */
+    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800');
+}
+
+.directorio-materias li:nth-child(2) { /* Artículos Científicos */
+    background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800');
+}
+
+.directorio-materias li:nth-child(3) { /* Audiolibros */
+    background-image: url('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800');
+}
+
+.directorio-materias li:nth-child(4) { /* Derecho */
+    background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800');
+}
+
+.directorio-materias li:nth-child(5) { /* Diseño Gráfico */
+    background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800');
+}
+
+.directorio-materias li:nth-child(6) { /* Español */
+    background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800');
+}
+
+.directorio-materias li:nth-child(7) { /* Historia */
+    background-image: url('https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=800');
+}
+
+.directorio-materias li:nth-child(8) { /* Matemáticas */
+    background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800');
+}
+
+.directorio-materias li:nth-child(9) { /* Podcast */
+    background-image: url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800');
+}
+
+.directorio-materias li:nth-child(10) { /* Programación Web */
+    background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800');
+}
+
+.directorio-materias li:nth-child(11) { /* Sociología */
+    background-image: url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800');
 }
