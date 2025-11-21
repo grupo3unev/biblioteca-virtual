@@ -1,24 +1,18 @@
-/* --- biblioteca.css - VERSIÓN FINAL Y COMPLETA --- */
-
-/* 1. IMPORTS Y VARIABLES */
-/* Usamos Poppins para títulos y Roboto para texto general (más moderno y legible) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
 
 :root {
-    --color-principal: #003366; /* Azul Oscuro UNEV */
-    --color-secundario: #3b71ca; /* Azul Intermedio */
-    --color-naranja-unev: #FF6F00; /* Naranja UNEV */
-    --color-fondo-claro: #eef2f7; /* Fondo muy claro para elementos internos */
+    --color-principal: #003366;
+    --color-secundario: #3b71ca;
+    --color-naranja-unev: #FF6F00;
+    --color-fondo-claro: #eef2f7;
     --color-texto: #333;
     --color-sombra: rgba(0,0,0,0.15);
 }
 
-/* 2. ESTILOS GENERALES */
 body {
-    font-family: 'Roboto', sans-serif; /* Fuente base */
-    /* Degradado de fondo con colores UNEV */
+    font-family: 'Roboto', sans-serif;
     background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-naranja-unev) 100%);
-    background-attachment: fixed; /* Mantiene el fondo estático al hacer scroll */
+    background-attachment: fixed;
     color: var(--color-texto);
     margin: 0;
     padding: 0;
@@ -27,7 +21,6 @@ body {
     scroll-behavior: smooth;
 }
 
-/* 3. ENCABEZADO (Header) */
 header {
     background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-secundario) 100%);
     color: white;
@@ -39,97 +32,64 @@ header {
 }
 
 header h2 {
-    font-family: 'Poppins', sans-serif; /* Fuente para títulos */
+    font-family: 'Poppins', sans-serif;
     font-size: 2.8em;
     margin-bottom: 0; 
-    line-height: 1; /* Compactación máxima */
+    line-height: 1;
     letter-spacing: 1.5px;
     animation: fadeInDown 1s ease-out;
 }
 
 header p {
     font-size: 1.1em;
-    margin-top: -3px; /* Compactación máxima */
+    margin-top: -3px;
     opacity: 0.9;
     animation: fadeInUp 1s ease-out 0.3s forwards;
     opacity: 0; 
 }
 
-/* 3.1 BOTÓN VOLVER (Nuevo estilo para las páginas de materia) */
-.header-back-link {
+/* BOTÓN CON EFECTO GLOW */
+.glow-button {
     position: absolute;
     top: 25px; 
     left: 20px;
-    color: white;
-    text-decoration: none;
-    font-size: 1em;
-    padding: 8px 15px;
-    border: 1px solid white;
-    border-radius: 5px;
-    transition: background-color 0.2s, border-color 0.2s;
-    font-family: 'Roboto', sans-serif;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
     font-weight: 500;
-    z-index: 10; 
+    border-radius: 1rem;
+    border: none;
+    background: #100720;
+    transition: 0.1s;
+    z-index: 10;
+    font-family: 'Roboto', sans-serif;
 }
 
-.header-back-link:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: var(--color-naranja-unev);
-}
-
-
-/* 4. BARRA DE NAVEGACIÓN FLOTANTE (No se usa en las páginas de materia, solo en el Directorio) */
-.nav-categorias {
-    position: sticky; 
+.glow-button::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, #ff7208 17.8%, rgb(2, 69, 255) 100.2%);
+    filter: blur(15px);
+    z-index: -1;
+    position: absolute;
+    left: 0;
     top: 0;
-    z-index: 1000;
-    background-color: white; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-    padding: 10px 0;
-    text-align: center;
-    border-bottom: 2px solid var(--color-fondo-claro);
+    border-radius: 1rem;
 }
 
-.nav-categorias a {
-    font-family: 'Poppins', sans-serif;
-    text-decoration: none;
-    color: var(--color-principal);
-    padding: 10px 20px;
-    margin: 0 5px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    font-weight: 600;
+.glow-button:active {
+    transform: scale(0.9) rotate(3deg);
+    background: radial-gradient(circle farthest-corner at 10% 20%, #ff7208 17.8%, rgba(2, 69, 255) 100.2%);
+    transition: 0.5s;
 }
 
-.nav-categorias a:hover {
-    background-color: var(--color-secundario);
-    color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+.glow-button:hover {
+    opacity: 0.95;
 }
 
-/* 5. TÍTULOS DE CATEGORÍA */
-.categoria-titulo {
-    background-color: white;
-    color: var(--color-principal);
-    padding: 20px 40px;
-    margin: 30px auto 0 auto; 
-    text-align: left;
-    font-size: 1.8em;
-    font-family: 'Poppins', sans-serif;
-    border-left: 8px solid var(--color-secundario);
-    width: 90%;
-    max-width: 1200px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
-}
-
-.categoria-titulo:hover {
-    background-color: #fcfcfc; 
-    box-shadow: 0 4px 12px var(--color-sombra);
-}
-
-/* 6. CONTENEDOR Y TARJETAS */
 .contenedor-libros {
     display: flex;
     flex-wrap: wrap;
@@ -190,7 +150,6 @@ header p {
     flex-grow: 1;
 }
 
-/* 7. BOTÓN DE DESCARGA */
 .btn-descargar {
     display: inline-block;
     margin-top: 10px;
@@ -212,7 +171,6 @@ header p {
     transform: translateY(-2px);
 }
 
-/* 8. ANIMACIONES */
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -223,12 +181,15 @@ header p {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 9. ADAPTACIÓN RESPONSIVA */
 @media (max-width: 768px) {
     header h2 { font-size: 2em; }
-    .header-back-link { top: 15px; padding: 6px 12px; }
-    .nav-categorias a { padding: 8px 10px; font-size: 0.9em; margin: 0 2px; }
-    .categoria-titulo { font-size: 1.4em; padding: 15px 20px; width: 95%; margin: 20px auto 0 auto; }
+    .glow-button { 
+        top: 15px; 
+        left: 10px;
+        width: 160px;
+        height: 45px;
+        font-size: 14px;
+    }
     .tarjeta-libro { width: 90%; max-width: 350px; }
     .contenedor-libros { padding: 20px 10px; }
 }

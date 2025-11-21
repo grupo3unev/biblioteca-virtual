@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración de Empresas - Biblioteca UNEV</title>
-    
     <link rel="stylesheet" href="administracion_de_empresas.css"> 
 </head>
 <body>
-
     <header>
-        <a href="biblioteca.html" class="header-back-link">&larr; Volver al Directorio</a>
-        
+        <button id="btn-volver-directorio" class="glow-button" onclick="window.location.href='biblioteca.html'">
+            Volver al Directorio
+        </button>
+
         <h2>📈 Libros de Administración de Empresas</h2>
         <p>Material fundamental para la gestión, planeación y estrategia empresarial.</p>
     </header>
 
     <div class="contenedor-libros">
-
         <div class="tarjeta-libro">
             <img src="portadas/cartoon-illustration-of-a-businessman-vector.jpg" alt="Gestión Estratégica" class="portada">
             <div class="titulo">Gestión Estratégica Moderna</div>
@@ -59,8 +58,6 @@
             <div class="autor">Ph.D. Stephen Robbins</div>
             <a href="libros/comportamiento_organizacional.pdf" target="_blank" class="btn-descargar">Ver / Descargar</a>
         </div>
-        
-        </div>
-
+    </div>
 </body>
 </html>
