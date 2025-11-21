@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración - Subir Archivos a Firebase</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
+        div { margin-bottom: 15px; }
+        input[type="text"], input[type="file"] { width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; background-color: #3b71ca; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2a5bb3; }
+        #progreso, #resultado { margin-top: 10px; padding: 10px; border-radius: 4px; }
+        #progreso { background-color: #fff3cd; color: #856404; }
+        #resultado { background-color: #d4edda; color: #155724; }
+    </style>
+</head>
+<body>
+
+    <h2>⬆️ Subir Nuevo Documento o Podcast a Firebase</h2>
+
+    <div>
+        <label for="titulo">Título del Documento/Podcast:</label><br>
+        <input type="text" id="titulo" placeholder="Ej: Manual de la UNEV 2025" required>
+    </div>
+    
+    <div>
+        <label for="autor">Autor o Fuente:</label><br>
+        <input type="text" id="autor" placeholder="Ej: Departamento de Contabilidad">
+    </div>
+
+    <div>
+        <label for="materia">Materia o Categoría (Carpeta de Firebase):</label><br>
+        <input type="text" id="materia" value="administracion" placeholder="ej: administracion, historia" required>
+    </div>
+    
+    <div>
+        <label for="solo-lectura">Modo de Seguridad:</label>
+        <input type="checkbox" id="solo-lectura"> **Solo Lectura (Evitar Descarga)**
+    </div>
+
+    <div>
+        <label for="archivo">Selecciona Archivo (PDF/MP3):</label><br>
+        <input type="file" id="archivo" accept=".pdf, .mp3, .mp4, .m4a" required> 
+    </div>
+
+    <button onclick="subirArchivo()">Subir a Firebase y Registrar</button>
+    <p id="progreso">Esperando selección...</p>
+    <p id="resultado"></p>
+
+    <script type="module">
+        // Importa las funciones necesarias para Firebase App, Storage y Firestore
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        // 2. 🔑 TU CONFIGURACIÓN DE FIREBASE (¡REEMPLAZA ESTOS VALORES!)
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyC_HlJ-0lGFp5ixexVHCpmEMS_CGZL-s",
+            authDomain: "biblioteca-virtual-4309a.firebaseapp.com",
+            projectId: "biblioteca-virtual-4309a",
+            storageBucket: "biblioteca-virtual-4309a.firebasestorage.app",
+            messagingSenderId: "25638889336",
+            appId: "1:25638889336:web:2c17cc9737033df546020d",
+            measurementId: "G-QYWYYPK26S"
+        };
+
+
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app); 
+        const db = getFirestore(app); // Inicializa Firestore
+
+        // 3. FUNCIÓN DE SUBIDA Y REGISTRO EN FIRESTORE
+        window.subirArchivo = function() {
+            // Recolección de Datos
+            const archivoInput = document.getElementById('archivo');
+            const materiaInput = document.getElementById('materia');
+            const tituloInput = document.getElementById('titulo');
+            const autorInput = document.getElementById('autor');
+            const soloLecturaInput = document.getElementById('solo-lectura');
+
+            const archivo = archivoInput.files[0];
+            const carpeta = materiaInput.value.trim().toLowerCase();
+            
+            // Datos para Firestore
+            const titulo = tituloInput.value.trim();
+            const autor = autorInput.value.trim() || 'Desconocido';
+            const soloLectura = soloLecturaInput.checked; 
+            const tipoArchivo = archivo.name.split('.').pop().toLowerCase(); 
+
+            const progresoElement = document.getElementById('progreso');
+            const resultadoElement = document.getElementById('resultado');
+
+            if (!archivo || !carpeta || !titulo) {
+                alert("Por favor, llena el Título, selecciona un Archivo y escribe una Materia.");
+                return;
+            }
+
+            // A. SUBIDA A CLOUD STORAGE
+            const rutaStorage = `archivos/${carpeta}/${archivo.name}`;
+            const storageRef = ref(storage, rutaStorage);
+            const uploadTask = uploadBytesResumable(storageRef, archivo);
+            progresoElement.textContent = 'Iniciando subida a Storage...';
+            
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progresoElement.textContent = `Progreso: ${progress.toFixed(2)}%`;
+                }, 
+                (error) => {
+                    console.error("Error al subir a Storage:", error);
+                    progresoElement.textContent = `¡Error al subir! ${error.message}`;
+                }, 
+                async () => {
+                    // B. REGISTRO EN FIRESTORE
+                    try {
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+                        // Objeto de datos que se guarda en Firestore
+                        const docData = {
+                            titulo: titulo,
+                            autor: autor,
+                            materia: carpeta,
+                            ruta_storage: rutaStorage,
+                            url_descarga: downloadURL, 
+                            solo_lectura: soloLectura,
+                            tipo: tipoArchivo,
+                            fecha_subida: new Date()
+                        };
+
+                        // Añadir el documento a la colección 'documentos'
+                        const docRef = await addDoc(collection(db, "documentos"), docData);
+                        
+                        progresoElement.textContent = '¡Subida y Registro completados! ✅';
+                        resultadoElement.innerHTML = `
+                            **Documento registrado:** ${titulo}<br>
+                            **ID en Base de Datos:** ${docRef.id}<br>
+                            **Ruta de Storage:** ${rutaStorage}
+                        `;
+                    } catch (e) {
+                        console.error("Error al añadir documento a Firestore: ", e);
+                        resultadoElement.textContent = `Error al registrar en DB: ${e.message}`;
+                    }
+                }
+            );
+        }
+    </script>
+</body>
+</html>
