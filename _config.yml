@@ -1,0 +1,3 @@
+# Especifica la página de inicio de tu sitio
+# Sustituye 'login.html' por el nombre exacto de tu archivo HTML de inicio
+index: login.html
