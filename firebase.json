@@ -14,7 +14,7 @@
     }
   ],
   "hosting": {
-    "public": ".",
+    "public": "biblioteca",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -23,7 +23,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/login.html"
+        "destination": "/index.html"
       }
     ]
   }

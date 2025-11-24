@@ -11,7 +11,7 @@ function handleCredentialResponse(response) {
         if (correo.endsWith("@unev.edu.hn")) {
             
             // 1. MENSAJE DE ÉXITO (VERDE)
-            mostrarMensaje("✅ ¡Bienvenido, " + nombre + "!<br>Redirigiendo al sistema...", "exito");
+            mostrarMensaje("¡Bienvenido, " + nombre + "!<br>Redirigiendo al sistema...", "exito");
 
             // Ocultamos el botón de Google para que se vea más limpio
             document.getElementById("botonGoogle").style.display = "none";
@@ -23,7 +23,7 @@ function handleCredentialResponse(response) {
 
         } else {
             // 3. MENSAJE DE ERROR (ROJO)
-            mostrarMensaje("⛔ Acceso Denegado.<br>El correo " + correo + " no pertenece a la UNEV.", "error");
+            mostrarMensaje("Acceso Denegado.<br>El correo " + correo + " no pertenece a la UNEV.", "error");
         }
 
     } catch (e) {
