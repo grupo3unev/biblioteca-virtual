@@ -13,6 +13,16 @@
     --color-sombra: rgba(0,0,0,0.15);
 }
 
+/* ESTILO ESPECÍFICO PARA EL REPRODUCTOR DE AUDIO DENTRO DE LA TARJETA */
+.tarjeta-libro audio {
+    width: 90%;            /* Hace que el reproductor ocupe casi todo el ancho */
+    margin-top: 10px;      /* Espacio encima del reproductor */
+    display: block;        /* Para que respete el ancho completo */
+    margin-left: auto;     /* Centrado horizontal */
+    margin-right: auto;    /* Centrado horizontal */
+}
+
+
 /* 2. ESTILOS GENERALES */
 body {
     font-family: 'Roboto', sans-serif; /* Fuente base */
