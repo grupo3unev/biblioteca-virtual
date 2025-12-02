@@ -11,6 +11,7 @@ function handleCredentialResponse(response) {
         if (correo.endsWith("@unev.edu.hn")) {
             
             // 1. MENSAJE DE ÉXITO (VERDE)
+            //
             mostrarMensaje("¡Bienvenido, " + nombre + "!<br>Redirigiendo al sistema...", "exito");
 
             // Ocultamos el botón de Google para que se vea más limpio
